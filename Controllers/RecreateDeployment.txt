@@ -1,0 +1,29 @@
+https://gist.github.com/Duffney/f74245494f88b3504b8dfb44b3c04790#file-recreatedeploymentmanifestkubernetes-yaml
+https://dev.to/cloudskills/kubernetes-deployment-strategy-recreate-3kgn
+https://medium.com/faun/kubernetes-deployment-strategy-types-826c96f3bef9
+
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: archetype-deployment
+  labels:
+    app: archetype
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: archetype
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: archetype
+    spec:
+      containers:
+      - name: archetype
+        image: duffney/archetype:v1
+        ports:
+        - containerPort: 80
